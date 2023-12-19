@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS myDatabase;
+USE myDatabase;
+
+CREATE TABLE IF NOT EXISTS candidates (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    alias VARCHAR(255) NOT NULL,
+    candidato VARCHAR(255) NOT NULL,
+    comoSeEntero TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    fullName VARCHAR(255) NOT NULL,
+    rut VARCHAR(255) NOT NULL
+);
