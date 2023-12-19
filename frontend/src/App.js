@@ -64,6 +64,7 @@ export default function App() {
       })
       .catch((error) => {
         setIsSubmitting(true);
+        console.log(error);
         setServerResponse({
           error: true,
           message: "Error del servidor",

@@ -1,11 +1,11 @@
 <?php
 include 'database.php';
 
-function add_votos_info($alias, $candidato, $comoSeEntero, $email, $fullName, $rut)
+function add_votos_info($alias, $candidato, $comoSeEntero, $email, $fullName, $rut, $region, $comuna)
 {
     $pdo = Database::connect();
     $comoSeEnteroJson = json_encode($comoSeEntero);
-    $sql = "INSERT INTO votos (alias, candidato, comoSeEntero, email, fullName, rut) VALUES ('{$alias}', '{$candidato}', '{$comoSeEnteroJson}', '{$email}', '{$fullName}', '{$rut}')";
+    $sql = "INSERT INTO votos (alias, candidato, comoSeEntero, email, fullName, rut, region, comuna) VALUES ('{$alias}', '{$candidato}', '{$comoSeEnteroJson}', '{$email}', '{$fullName}', '{$rut}', '{$region}', '{$comuna}')";
     $status = [];
 
     try {
@@ -42,7 +42,7 @@ function check_existing_votos($rut)
 
         if ($result) {
             $status['exists'] = true;
-            $status['message'] = "El Rut ya esta registrado";
+            $status['message'] = "El Rut ya esta registrad1o";
             $status["error"] = true;
         }
 
