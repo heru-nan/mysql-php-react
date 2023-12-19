@@ -10,16 +10,10 @@ export default function App() {
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
-  // code fetch data from API (regiones y comunas)
   const [regiones, setRegiones] = React.useState([]);
   const [comunas, setComunas] = React.useState([]);
   const [region, setRegion] = React.useState("");
@@ -32,12 +26,49 @@ export default function App() {
     message: "",
   });
 
+  const onSubmit = (data) => {
+    if (data.comoSeEntero.length < 2) {
+      setServerResponse({
+        error: true,
+        message: "Debe seleccionar al menos dos opciones",
+      });
+      return;
+    }
+
+    fetch("http://localhost:8000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setIsSubmitting(true);
+        setServerResponse(data);
+
+        if (!data.error) reset();
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        setIsSubmitting(true);
+        setServerResponse({
+          error: true,
+          message: "Error del servidor",
+        });
+        setIsSubmitting(false);
+      });
+  };
+
   useEffect(() => {
     fetch("/dpa/regiones")
       .then((res) => res.json())
       .then((data) => setRegiones(data));
 
-    setCandidatos(["Candidato 1", "Candidato 2", "Candidato 3"]);
+    fetch("http://localhost:8000")
+      .then((res) => res.json())
+      .then((data) => setCandidatos(data.map((e) => e?.nombre)));
   }, []);
 
   const comunaHandler = (region) => {
@@ -100,8 +131,11 @@ export default function App() {
                 validate: (value) => validate(value),
               })}
             />
-            {errors.rut && (
+            {errors.rut?.type === "required" && (
               <span className="error-message">Este campo es requerido</span>
+            )}
+            {errors.rut?.type === "validate" && (
+              <span className="error-message">RUT invalido</span>
             )}
           </div>
           <div className="form-group mt-3 mb-3">
@@ -226,7 +260,7 @@ export default function App() {
               </span>
             )}
           </div>
-          <input type="submit" className="btn btn-primary" />
+          <input type="submit" value="Votar" className="btn btn-primary" />
         </form>
 
         {isSubmitting && <div className="my-3">Enviando datos...</div>}
