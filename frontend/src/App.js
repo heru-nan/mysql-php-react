@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "./App.css";
 
-const { validate, format } = require("rut.js");
+const { validate } = require("rut.js");
 
 export default function App() {
   const {
@@ -27,6 +27,17 @@ export default function App() {
   });
 
   const onSubmit = (data) => {
+    data.region = regiones?.find((e) => e.codigo === region)?.nombre;
+    data.comuna = comunas?.find((e) => e.codigo === comuna)?.nombre;
+
+    if (!region || !comuna) {
+      setServerResponse({
+        error: true,
+        message: "Debe seleccionar una región y una comuna",
+      });
+      return;
+    }
+
     if (data.comoSeEntero.length < 2) {
       setServerResponse({
         error: true,

@@ -2,7 +2,7 @@
 
 - Este código requiere que PHP y Node.js y Mysql estén instalados en tu sistema.
 -
-- Versión de PHP requerida: 7.4 o superior
+- Versión de PHP requerida: 8 o superior
 - Versión de Node.js requerida: 16 o superior
 - Versión de Mysql Client requerida: 8 o superior
 -

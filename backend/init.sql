@@ -8,7 +8,9 @@ CREATE TABLE IF NOT EXISTS votos (
     comoSeEntero TEXT NOT NULL,
     email VARCHAR(255) NOT NULL,
     fullName VARCHAR(255) NOT NULL,
-    rut VARCHAR(255) NOT NULL
+    rut VARCHAR(255) NOT NULL,
+    region VARCHAR(255) NOT NULL,
+    comuna VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS candidatos (

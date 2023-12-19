@@ -12,7 +12,7 @@ function add_votos_info($alias, $candidato, $comoSeEntero, $email, $fullName, $r
         $query = $pdo->prepare($sql);
         $result = $query->execute();
         if ($result) {
-            $status['message'] = "Candidato agregado exitosamente";
+            $status['message'] = "Voto agregado exitosamente";
         } else {
             $status['message'] = "Data is not added";
         }
@@ -42,7 +42,7 @@ function check_existing_votos($rut)
 
         if ($result) {
             $status['exists'] = true;
-            $status['message'] = "El candidato ya existe";
+            $status['message'] = "El Rut ya esta registrado";
             $status["error"] = true;
         }
 
