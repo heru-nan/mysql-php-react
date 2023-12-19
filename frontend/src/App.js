@@ -66,9 +66,11 @@ export default function App() {
       .then((res) => res.json())
       .then((data) => setRegiones(data));
 
-    fetch("http://localhost:8000")
+    fetch("http://localhost:8000/candidatos")
       .then((res) => res.json())
-      .then((data) => setCandidatos(data.map((e) => e?.nombre)));
+      .then((data) => {
+        setCandidatos(data.map((e) => e?.nombre));
+      });
   }, []);
 
   const comunaHandler = (region) => {
